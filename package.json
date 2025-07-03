@@ -1,0 +1,15 @@
+{
+  "name": "namastenode",
+  "version": "1.0.0",
+  "description": "DevTinder",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev" : "nodemon src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
