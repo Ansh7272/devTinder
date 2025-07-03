@@ -53,6 +53,18 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.post('/hello', (req, res) => {
+  res.send('INDIA')
+})
+
+app.get('/test', (req, res) => {
+  res.send('CHINA')
+})
+
+app.delete('/delete', (req, res) => {
+  res.send('Deleting china from map')
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
