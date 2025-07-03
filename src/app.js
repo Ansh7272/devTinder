@@ -49,6 +49,8 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+app.use(express.urlencoded({ extended: true }));
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
@@ -63,6 +65,16 @@ app.get('/test', (req, res) => {
 
 app.delete('/delete', (req, res) => {
   res.send('Deleting china from map')
+})
+
+app.get('/user', (req, res) => {
+  console.log({...req.query});
+  res.send("Learning about query")
+})
+
+app.get('/user/:userid', (req, res) => {
+  console.log({...req.params});
+  res.send("Learning about query")
 })
 
 app.listen(port, () => {
