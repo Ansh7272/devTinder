@@ -46,38 +46,90 @@
 //   .finally(() => client.close());
 
 const express = require('express')
+const mongodb = require("./config/database");
 const app = express()
 const port = 3000
+const UserModel = require("./models/user");
+// app.use(express.urlencoded({ extended: true }));
 
-app.use(express.urlencoded({ extended: true }));
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// app.post('/hello', (req, res) => {
+//   res.send('INDIA')
+// })
 
-app.post('/hello', (req, res) => {
-  res.send('INDIA')
-})
+// app.get('/test', (req, res) => {
+//   res.send('CHINA')
+// })
 
-app.get('/test', (req, res) => {
-  res.send('CHINA')
-})
+// app.delete('/delete', (req, res) => {
+//   res.send('Deleting china from map')
+// })
 
-app.delete('/delete', (req, res) => {
-  res.send('Deleting china from map')
-})
+// app.get('/user', (req, res) => {
+//   console.log({...req.query});
+//   res.send("Learning about query")
+// })
 
-app.get('/user', (req, res) => {
-  console.log({...req.query});
-  res.send("Learning about query")
-})
+// app.get('/user/:userid', (req, res) => {
+//   console.log({...req.params});
+//   res.send("Learning about query")
+// })
+// app.post("/signup",async(req,res)=>{
+//     const User = new UserModel({
+//       firstName : "Anshu",
+//       lastName : "Gupta",
+//       emailId : "anshu8111121@gmail.com",
+//       password: "anshu@123",
+//     });
 
-app.get('/user/:userid', (req, res) => {
-  console.log({...req.params});
-  res.send("Learning about query")
-})
+//     await User.save();
+//     res.send("user added succesfully");
+// });
 
-app.listen(port, () => {
+
+
+  
+// mongodb().then(()=>{
+//     console.log("Database connection estb");
+
+//     app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// });
+
+// }).catch((err) => {
+//   console.log("err")
+// });
+
+
+app.post("/signup", async (req, res) => {
+  try {
+    const user = new UserModel({
+      firstName: "Anshu",
+      lastName: "Gupta",
+      emailId: "anshu8111121@gmail.com",
+      password: "anshu@123",
+    });
+
+    const result = await user.save();
+    console.log(" User saved successfully:", result);
+    res.send("User added successfully");
+  } catch (err) {
+    console.error(" Error saving user:", err);
+    res.status(500).send("Error saving user");
+  }
+});
+
+mongodb().then(()=>{
+    console.log("Database connection estb");
+
+    app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+});
+
+}).catch((err) => {
+  console.log("err")
+});
 
